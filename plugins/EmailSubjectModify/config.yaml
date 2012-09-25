@@ -1,0 +1,72 @@
+name: Email Subject Modify
+id: EmailSubjectModify
+key: EmailSubjectModify
+author_link: http://tweezersedge.com/
+author_name: David Phillips
+description: >>
+    Modify subject line of emails sent by Movable Type.</p>
+    
+    <p>To edit the subject lines of emails sent by Movable Type,
+    edit the <a href="?__mode=list_template#email">system email template</a>
+    used to publish the email.
+version: 0.1
+plugin_link: https://github.com/dphillips/mt-plugin-email-subject-modify
+doc_link: https://github.com/dphillips/mt-plugin-email-subject-modify
+l10n_class: EmailSubjectModify::L10N
+
+settings:
+    emailsubjmod_comment_throttle:
+        Default: IP Banned Due to Excessive Comments
+        Scope: system
+    emailsubjmod_commenter_confirm:
+        Default: Movable Type Account Confirmation
+        Scope: system
+    emailsubjmod_email_verification_email:
+        Default: Movable Type Account Confirmation
+        Scope: system
+    emailsubjmod_commenter_notify:
+        Default: [_1] registered to the blog '[_2]'
+        Scope: system
+    emailsubjmod_notify_entry:
+        Default: [_1] Update: [_2]
+        Scope: system
+    emailsubjmod_lockout_ip:
+        Default: IP Address Was Locked Out
+        Scope: system
+    emailsubjmod_new_comment:
+        Default: New Comment Added to '[_1]'
+        Scope: system
+    emailsubjmod_entry_notification:
+        Default: New entry '[_1]' added to the blog '[_2]'
+        Scope: system
+    emailsubjmod_new_ping-entry:
+        Default: New TrackBack ping to '[_1]'
+        Scope: system
+    emailsubjmod_new_ping-category:
+        Default: New TrackBack ping to category '[_1]'
+        Scope: system
+    emailsubjmod_recover_password:
+        Default: Password Recovery
+        Scope: system
+    emailsubjmod_verify_subscribe:
+        Default: Please verify your email to subscribe
+        Scope: system
+    emailsubjmod_register_notification-blog:
+        Default: [_1] registered to the blog '[_2]'
+        Scope: system
+    emailsubjmod_register_notification-system:
+        Default: [_1] registered to Movable Type.
+        Scope: system
+    emailsubjmod_lockout_user:
+        Default: User Was Locked Out
+        Scope: system
+
+callbacks:
+    init_app: $EmailSubjectModify::EmailSubjectModify::init_app
+    mail_filter: $EmailSubjectModify::EmailSubjectModify::_modify_email_subject
+
+applications:
+    cms:
+        callbacks:
+            template_param.edit_template: $EmailSubjectModify::EmailSubjectModify::edit_template_param
+            cms_post_save.template: $EmailSubjectModify::EmailSubjectModify::CMSPostSave_template_email_subject
